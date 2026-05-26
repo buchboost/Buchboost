@@ -1,0 +1,2021 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>BuchBoost — Premium Book Marketing & Author Promotion</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;0,800;0,900;1,400;1,700&family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;0,700;1,400;1,500&family=Montserrat:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<style>
+/* ============================================
+   BUCHBOOST — PREMIUM BOOK MARKETING WEBSITE
+   Design: Cinematic Luxury Literary
+   ============================================ */
+
+:root {
+  --midnight: #06060f;
+  --deep-navy: #0d0d1f;
+  --navy: #141428;
+  --charcoal: #1c1c35;
+  --gold: #c9a96e;
+  --gold-light: #e2c992;
+  --gold-bright: #f0d9a0;
+  --rose: #d4798a;
+  --rose-soft: #e8a0af;
+  --cream: #f0e6d3;
+  --cream-dim: #c4b8a5;
+  --white: #faf7f2;
+  --glass: rgba(13, 13, 31, 0.85);
+  --glass-light: rgba(201, 169, 110, 0.08);
+}
+
+* { margin:0; padding:0; box-sizing:border-box; }
+
+html {
+  scroll-behavior: smooth;
+  overflow-x: hidden;
+}
+
+body {
+  font-family: 'Cormorant Garamond', Georgia, serif;
+  background: var(--midnight);
+  color: var(--cream);
+  overflow-x: hidden;
+  line-height: 1.7;
+}
+
+/* ---- BUTTERFLY CANVAS ---- */
+#butterfly-canvas {
+  position: fixed;
+  top: 0; left: 0;
+  width: 100vw; height: 100vh;
+  pointer-events: none;
+  z-index: 9999;
+}
+
+/* ---- PRELOADER ---- */
+#preloader {
+  position: fixed;
+  inset: 0;
+  background: var(--midnight);
+  z-index: 100000;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  transition: opacity 0.8s ease, visibility 0.8s ease;
+}
+#preloader.hidden {
+  opacity: 0;
+  visibility: hidden;
+}
+#preloader h2 {
+  font-family: 'Playfair Display', serif;
+  font-size: 2.4rem;
+  color: var(--gold);
+  letter-spacing: 6px;
+  animation: pulse-gold 2s ease infinite;
+}
+#preloader .loader-bar {
+  width: 200px; height: 2px;
+  background: var(--charcoal);
+  margin-top: 30px;
+  border-radius: 2px;
+  overflow: hidden;
+}
+#preloader .loader-bar span {
+  display: block;
+  width: 0%;
+  height: 100%;
+  background: linear-gradient(90deg, var(--gold), var(--rose));
+  animation: load-bar 2s ease-out forwards;
+}
+
+@keyframes load-bar { to { width: 100%; } }
+@keyframes pulse-gold {
+  0%,100% { opacity:1; }
+  50% { opacity:0.5; }
+}
+
+/* ---- NAVIGATION ---- */
+nav {
+  position: fixed;
+  top: 0; left: 0; right: 0;
+  z-index: 10000;
+  padding: 18px 50px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background: transparent;
+  transition: background 0.4s ease, backdrop-filter 0.4s ease;
+}
+nav.scrolled {
+  background: rgba(6,6,15,0.92);
+  backdrop-filter: blur(20px);
+  border-bottom: 1px solid rgba(201,169,110,0.15);
+}
+.nav-logo {
+  font-family: 'Playfair Display', serif;
+  font-size: 1.6rem;
+  font-weight: 800;
+  color: var(--gold);
+  letter-spacing: 4px;
+  text-decoration: none;
+  text-transform: uppercase;
+}
+.nav-logo span { color: var(--rose); }
+.nav-links {
+  display: flex;
+  gap: 32px;
+  list-style: none;
+}
+.nav-links a {
+  font-family: 'Montserrat', sans-serif;
+  font-size: 0.75rem;
+  font-weight: 500;
+  letter-spacing: 2.5px;
+  text-transform: uppercase;
+  color: var(--cream-dim);
+  text-decoration: none;
+  position: relative;
+  transition: color 0.3s;
+}
+.nav-links a::after {
+  content: '';
+  position: absolute;
+  bottom: -4px; left: 0;
+  width: 0; height: 1px;
+  background: var(--gold);
+  transition: width 0.3s;
+}
+.nav-links a:hover { color: var(--gold); }
+.nav-links a:hover::after { width: 100%; }
+
+.nav-cta {
+  font-family: 'Montserrat', sans-serif;
+  font-size: 0.7rem;
+  font-weight: 600;
+  letter-spacing: 3px;
+  text-transform: uppercase;
+  color: var(--midnight);
+  background: linear-gradient(135deg, var(--gold), var(--gold-light));
+  padding: 12px 28px;
+  text-decoration: none;
+  border-radius: 0;
+  transition: all 0.3s;
+}
+.nav-cta:hover {
+  background: linear-gradient(135deg, var(--rose), var(--rose-soft));
+  transform: translateY(-2px);
+  box-shadow: 0 8px 30px rgba(212,121,138,0.3);
+}
+
+/* Mobile menu */
+.hamburger {
+  display: none;
+  flex-direction: column;
+  gap: 5px;
+  cursor: pointer;
+  z-index: 10001;
+}
+.hamburger span {
+  width: 28px; height: 2px;
+  background: var(--gold);
+  transition: all 0.3s;
+}
+
+/* ---- HERO ---- */
+#hero {
+  position: relative;
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  overflow: hidden;
+  background: radial-gradient(ellipse at 30% 50%, rgba(201,169,110,0.06) 0%, transparent 60%),
+              radial-gradient(ellipse at 70% 30%, rgba(212,121,138,0.04) 0%, transparent 50%),
+              var(--midnight);
+}
+.hero-particles {
+  position: absolute;
+  inset: 0;
+  overflow: hidden;
+}
+.hero-particle {
+  position: absolute;
+  width: 3px; height: 3px;
+  background: var(--gold);
+  border-radius: 50%;
+  opacity: 0;
+  animation: float-particle 8s ease-in-out infinite;
+}
+@keyframes float-particle {
+  0% { opacity:0; transform: translateY(100vh) scale(0); }
+  20% { opacity:0.8; }
+  80% { opacity:0.3; }
+  100% { opacity:0; transform: translateY(-100px) scale(1); }
+}
+
+.hero-content {
+  position: relative;
+  z-index: 10;
+  max-width: 900px;
+  padding: 0 30px;
+}
+.hero-eyebrow {
+  font-family: 'Montserrat', sans-serif;
+  font-size: 0.7rem;
+  font-weight: 600;
+  letter-spacing: 8px;
+  text-transform: uppercase;
+  color: var(--gold);
+  margin-bottom: 30px;
+  opacity: 0;
+  animation: fadeUp 1s ease 0.5s forwards;
+}
+.hero-title {
+  font-family: 'Playfair Display', serif;
+  font-size: clamp(2.8rem, 6vw, 5.5rem);
+  font-weight: 900;
+  line-height: 1.1;
+  color: var(--white);
+  margin-bottom: 24px;
+  opacity: 0;
+  animation: fadeUp 1s ease 0.8s forwards;
+}
+.hero-title .accent { color: var(--gold); }
+.hero-title .accent-rose { color: var(--rose); }
+.hero-subtitle {
+  font-size: 1.3rem;
+  font-weight: 300;
+  color: var(--cream-dim);
+  max-width: 600px;
+  margin: 0 auto 50px;
+  opacity: 0;
+  animation: fadeUp 1s ease 1.1s forwards;
+}
+.hero-buttons {
+  display: flex;
+  gap: 20px;
+  justify-content: center;
+  flex-wrap: wrap;
+  opacity: 0;
+  animation: fadeUp 1s ease 1.4s forwards;
+}
+.btn-primary {
+  font-family: 'Montserrat', sans-serif;
+  font-size: 0.72rem;
+  font-weight: 600;
+  letter-spacing: 3px;
+  text-transform: uppercase;
+  color: var(--midnight);
+  background: linear-gradient(135deg, var(--gold), var(--gold-light));
+  padding: 16px 40px;
+  text-decoration: none;
+  border: none;
+  cursor: pointer;
+  transition: all 0.4s;
+  display: inline-block;
+}
+.btn-primary:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 12px 40px rgba(201,169,110,0.35);
+}
+.btn-secondary {
+  font-family: 'Montserrat', sans-serif;
+  font-size: 0.72rem;
+  font-weight: 500;
+  letter-spacing: 3px;
+  text-transform: uppercase;
+  color: var(--gold);
+  background: transparent;
+  padding: 16px 40px;
+  text-decoration: none;
+  border: 1px solid rgba(201,169,110,0.4);
+  transition: all 0.4s;
+  display: inline-block;
+}
+.btn-secondary:hover {
+  border-color: var(--gold);
+  background: rgba(201,169,110,0.08);
+  transform: translateY(-3px);
+}
+
+.hero-scroll-indicator {
+  position: absolute;
+  bottom: 40px;
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+  opacity: 0;
+  animation: fadeUp 1s ease 2s forwards;
+}
+.hero-scroll-indicator span {
+  font-family: 'Montserrat', sans-serif;
+  font-size: 0.6rem;
+  letter-spacing: 3px;
+  text-transform: uppercase;
+  color: var(--cream-dim);
+}
+.scroll-line {
+  width: 1px; height: 50px;
+  background: linear-gradient(to bottom, var(--gold), transparent);
+  animation: scroll-pulse 2s ease infinite;
+}
+@keyframes scroll-pulse {
+  0%,100% { opacity:0.3; transform: scaleY(0.5); }
+  50% { opacity:1; transform: scaleY(1); }
+}
+
+@keyframes fadeUp {
+  from { opacity:0; transform: translateY(30px); }
+  to { opacity:1; transform: translateY(0); }
+}
+@keyframes fadeIn {
+  from { opacity:0; }
+  to { opacity:1; }
+}
+
+/* ---- SECTION COMMONS ---- */
+section {
+  position: relative;
+  padding: 120px 50px;
+}
+.section-eyebrow {
+  font-family: 'Montserrat', sans-serif;
+  font-size: 0.68rem;
+  font-weight: 600;
+  letter-spacing: 6px;
+  text-transform: uppercase;
+  color: var(--gold);
+  margin-bottom: 16px;
+}
+.section-title {
+  font-family: 'Playfair Display', serif;
+  font-size: clamp(2rem, 4vw, 3.2rem);
+  font-weight: 800;
+  color: var(--white);
+  margin-bottom: 20px;
+  line-height: 1.2;
+}
+.section-subtitle {
+  font-size: 1.15rem;
+  color: var(--cream-dim);
+  max-width: 650px;
+  line-height: 1.8;
+}
+.section-divider {
+  width: 60px; height: 2px;
+  background: linear-gradient(90deg, var(--gold), var(--rose));
+  margin: 24px 0;
+}
+
+/* reveal animation */
+.reveal {
+  opacity: 0;
+  transform: translateY(40px);
+  transition: all 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+}
+.reveal.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* ---- ABOUT / STATS ---- */
+#about {
+  background: linear-gradient(180deg, var(--midnight) 0%, var(--deep-navy) 100%);
+}
+.about-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 80px;
+  align-items: center;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+.about-text p {
+  font-size: 1.1rem;
+  color: var(--cream-dim);
+  margin-top: 20px;
+  line-height: 1.9;
+}
+.stats-row {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 30px;
+  margin-top: 50px;
+}
+.stat-card {
+  background: var(--glass-light);
+  border: 1px solid rgba(201,169,110,0.12);
+  padding: 30px;
+  text-align: center;
+  transition: all 0.4s;
+}
+.stat-card:hover {
+  border-color: var(--gold);
+  transform: translateY(-4px);
+  box-shadow: 0 15px 40px rgba(201,169,110,0.1);
+}
+.stat-number {
+  font-family: 'Playfair Display', serif;
+  font-size: 2.8rem;
+  font-weight: 800;
+  color: var(--gold);
+  display: block;
+}
+.stat-label {
+  font-family: 'Montserrat', sans-serif;
+  font-size: 0.68rem;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  color: var(--cream-dim);
+  margin-top: 8px;
+}
+
+/* ---- SERVICES ---- */
+#services {
+  background: var(--deep-navy);
+}
+.services-header {
+  text-align: center;
+  max-width: 700px;
+  margin: 0 auto 80px;
+}
+.services-header .section-divider { margin: 24px auto; }
+.services-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(340px, 1fr));
+  gap: 24px;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+.service-card {
+  background: rgba(20,20,40,0.6);
+  border: 1px solid rgba(201,169,110,0.08);
+  padding: 40px 32px;
+  position: relative;
+  overflow: hidden;
+  transition: all 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+  cursor: default;
+}
+.service-card::before {
+  content: '';
+  position: absolute;
+  top: 0; left: 0;
+  width: 100%; height: 3px;
+  background: linear-gradient(90deg, var(--gold), var(--rose));
+  transform: scaleX(0);
+  transform-origin: left;
+  transition: transform 0.5s ease;
+}
+.service-card:hover::before { transform: scaleX(1); }
+.service-card:hover {
+  border-color: rgba(201,169,110,0.25);
+  transform: translateY(-6px);
+  box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+}
+.service-icon {
+  font-size: 2rem;
+  margin-bottom: 20px;
+  display: block;
+}
+.service-card h3 {
+  font-family: 'Playfair Display', serif;
+  font-size: 1.3rem;
+  font-weight: 700;
+  color: var(--white);
+  margin-bottom: 12px;
+}
+.service-card p {
+  font-size: 0.95rem;
+  color: var(--cream-dim);
+  line-height: 1.8;
+}
+
+/* ---- GALLERY ---- */
+#gallery {
+  background: linear-gradient(180deg, var(--deep-navy) 0%, var(--midnight) 50%, var(--deep-navy) 100%);
+  padding-bottom: 80px;
+}
+.gallery-header {
+  text-align: center;
+  max-width: 700px;
+  margin: 0 auto 60px;
+}
+.gallery-header .section-divider { margin: 24px auto; }
+
+.gallery-slider {
+  position: relative;
+  max-width: 1100px;
+  margin: 0 auto;
+  overflow: hidden;
+}
+.gallery-track {
+  display: flex;
+  transition: transform 0.7s cubic-bezier(0.16, 1, 0.3, 1);
+}
+.gallery-slide {
+  min-width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
+}
+.gallery-slide img {
+  max-width: 100%;
+  max-height: 600px;
+  object-fit: contain;
+  border-radius: 4px;
+  box-shadow: 0 30px 80px rgba(0,0,0,0.5), 0 0 60px rgba(201,169,110,0.08);
+  transition: transform 0.5s ease;
+}
+.gallery-slide img:hover {
+  transform: scale(1.02);
+}
+.gallery-controls {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 30px;
+  margin-top: 40px;
+}
+.gallery-btn {
+  width: 50px; height: 50px;
+  background: rgba(201,169,110,0.1);
+  border: 1px solid rgba(201,169,110,0.3);
+  color: var(--gold);
+  font-size: 1.3rem;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.3s;
+}
+.gallery-btn:hover {
+  background: var(--gold);
+  color: var(--midnight);
+}
+.gallery-dots {
+  display: flex;
+  gap: 10px;
+}
+.gallery-dot {
+  width: 10px; height: 10px;
+  border-radius: 50%;
+  background: rgba(201,169,110,0.2);
+  border: none;
+  cursor: pointer;
+  transition: all 0.3s;
+}
+.gallery-dot.active {
+  background: var(--gold);
+  box-shadow: 0 0 12px rgba(201,169,110,0.5);
+}
+
+/* ---- TRAILERS ---- */
+#trailers {
+  background: var(--deep-navy);
+  text-align: center;
+}
+.trailers-header {
+  max-width: 700px;
+  margin: 0 auto 60px;
+}
+.trailers-header .section-divider { margin: 24px auto; }
+.trailers-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 40px;
+  max-width: 1000px;
+  margin: 0 auto;
+}
+.trailer-card {
+  background: rgba(20,20,40,0.5);
+  border: 1px solid rgba(201,169,110,0.1);
+  padding: 30px;
+  transition: all 0.4s;
+}
+.trailer-card:hover {
+  border-color: rgba(201,169,110,0.3);
+  transform: translateY(-4px);
+}
+.trailer-card h3 {
+  font-family: 'Playfair Display', serif;
+  font-size: 1.2rem;
+  color: var(--gold);
+  margin-bottom: 10px;
+}
+.trailer-card p {
+  font-size: 0.9rem;
+  color: var(--cream-dim);
+  margin-bottom: 20px;
+}
+.trailer-link {
+  display: inline-block;
+  font-family: 'Montserrat', sans-serif;
+  font-size: 0.7rem;
+  font-weight: 600;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  color: var(--gold);
+  border: 1px solid var(--gold);
+  padding: 12px 28px;
+  text-decoration: none;
+  transition: all 0.3s;
+}
+.trailer-link:hover {
+  background: var(--gold);
+  color: var(--midnight);
+}
+
+/* ---- AUTHORS ---- */
+#authors {
+  background: linear-gradient(180deg, var(--deep-navy), var(--midnight));
+}
+.authors-header {
+  text-align: center;
+  max-width: 700px;
+  margin: 0 auto 70px;
+}
+.authors-header .section-divider { margin: 24px auto; }
+
+.authors-lang-group {
+  max-width: 1200px;
+  margin: 0 auto 70px;
+}
+.lang-label {
+  font-family: 'Montserrat', sans-serif;
+  font-size: 0.72rem;
+  font-weight: 600;
+  letter-spacing: 5px;
+  text-transform: uppercase;
+  color: var(--rose);
+  margin-bottom: 30px;
+  padding-bottom: 12px;
+  border-bottom: 1px solid rgba(212,121,138,0.2);
+}
+.authors-row {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+  gap: 28px;
+}
+.author-card {
+  text-align: center;
+  transition: all 0.4s;
+  cursor: default;
+}
+.author-card:hover { transform: translateY(-6px); }
+.author-avatar {
+  width: 110px; height: 110px;
+  border-radius: 50%;
+  margin: 0 auto 16px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: 'Playfair Display', serif;
+  font-size: 1.6rem;
+  font-weight: 700;
+  color: var(--midnight);
+  position: relative;
+  overflow: hidden;
+}
+.author-avatar::after {
+  content: '';
+  position: absolute;
+  inset: -2px;
+  border-radius: 50%;
+  border: 2px solid transparent;
+  background: linear-gradient(135deg, var(--gold), var(--rose)) border-box;
+  -webkit-mask: linear-gradient(#fff 0 0) padding-box, linear-gradient(#fff 0 0);
+  -webkit-mask-composite: xor;
+  mask-composite: exclude;
+}
+.avatar-fr { background: linear-gradient(135deg, #2a1a3e, #1a1a3e); }
+.avatar-de { background: linear-gradient(135deg, #1a2a1a, #1a1a2e); }
+.avatar-en { background: linear-gradient(135deg, #2a1a1a, #1a1a2e); }
+.author-card h4 {
+  font-family: 'Playfair Display', serif;
+  font-size: 1rem;
+  font-weight: 600;
+  color: var(--white);
+  margin-bottom: 4px;
+}
+.author-card span {
+  font-family: 'Montserrat', sans-serif;
+  font-size: 0.65rem;
+  letter-spacing: 1.5px;
+  text-transform: uppercase;
+  color: var(--gold);
+}
+
+/* ---- TEAM ---- */
+#team {
+  background: var(--midnight);
+}
+.team-header {
+  text-align: center;
+  max-width: 700px;
+  margin: 0 auto 70px;
+}
+.team-header .section-divider { margin: 24px auto; }
+.team-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+  gap: 36px;
+  max-width: 1100px;
+  margin: 0 auto;
+}
+.team-card {
+  text-align: center;
+  background: rgba(20,20,40,0.4);
+  border: 1px solid rgba(201,169,110,0.06);
+  padding: 40px 24px 30px;
+  transition: all 0.4s;
+}
+.team-card:hover {
+  border-color: rgba(201,169,110,0.2);
+  transform: translateY(-5px);
+}
+.team-avatar {
+  width: 90px; height: 90px;
+  border-radius: 50%;
+  margin: 0 auto 20px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: 'Playfair Display', serif;
+  font-size: 1.4rem;
+  font-weight: 700;
+  color: var(--cream);
+  background: linear-gradient(135deg, var(--charcoal), var(--navy));
+  border: 2px solid rgba(201,169,110,0.2);
+}
+.team-card.lead .team-avatar {
+  width: 110px; height: 110px;
+  border-color: var(--gold);
+  background: linear-gradient(135deg, #2a1a0a, #1a1028);
+  font-size: 1.6rem;
+}
+.team-card h4 {
+  font-family: 'Playfair Display', serif;
+  font-size: 1.1rem;
+  font-weight: 700;
+  color: var(--white);
+  margin-bottom: 6px;
+}
+.team-card .role {
+  font-family: 'Montserrat', sans-serif;
+  font-size: 0.62rem;
+  font-weight: 500;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  color: var(--gold);
+  margin-bottom: 12px;
+  display: block;
+}
+.team-card p {
+  font-size: 0.88rem;
+  color: var(--cream-dim);
+  line-height: 1.7;
+}
+
+/* ---- PACKAGES ---- */
+#packages {
+  background: linear-gradient(180deg, var(--midnight), var(--deep-navy));
+}
+.packages-header {
+  text-align: center;
+  max-width: 700px;
+  margin: 0 auto 70px;
+}
+.packages-header .section-divider { margin: 24px auto; }
+.packages-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+  gap: 28px;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+.package-card {
+  background: rgba(20,20,40,0.5);
+  border: 1px solid rgba(201,169,110,0.1);
+  padding: 44px 32px 36px;
+  text-align: center;
+  position: relative;
+  transition: all 0.5s;
+}
+.package-card.featured {
+  border-color: var(--gold);
+  background: linear-gradient(180deg, rgba(201,169,110,0.06), rgba(20,20,40,0.7));
+}
+.package-card.featured::before {
+  content: 'MOST POPULAR';
+  position: absolute;
+  top: 0; left: 50%;
+  transform: translate(-50%, -50%);
+  font-family: 'Montserrat', sans-serif;
+  font-size: 0.58rem;
+  font-weight: 700;
+  letter-spacing: 3px;
+  color: var(--midnight);
+  background: var(--gold);
+  padding: 6px 20px;
+}
+.package-card:hover {
+  transform: translateY(-8px);
+  box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+  border-color: rgba(201,169,110,0.3);
+}
+.package-card h3 {
+  font-family: 'Playfair Display', serif;
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: var(--white);
+  margin-bottom: 8px;
+}
+.package-price {
+  font-family: 'Playfair Display', serif;
+  font-size: 2.4rem;
+  font-weight: 800;
+  color: var(--gold);
+  margin-bottom: 6px;
+}
+.package-price small {
+  font-size: 0.9rem;
+  font-weight: 400;
+  color: var(--cream-dim);
+}
+.package-desc {
+  font-size: 0.85rem;
+  color: var(--cream-dim);
+  margin-bottom: 28px;
+  font-style: italic;
+}
+.package-features {
+  list-style: none;
+  text-align: left;
+  margin-bottom: 32px;
+}
+.package-features li {
+  font-size: 0.9rem;
+  color: var(--cream);
+  padding: 8px 0;
+  border-bottom: 1px solid rgba(201,169,110,0.06);
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+.package-features li::before {
+  content: '✦';
+  color: var(--gold);
+  font-size: 0.7rem;
+}
+.package-card .btn-primary {
+  width: 100%;
+  text-align: center;
+}
+
+/* ---- CONTACT ---- */
+#contact {
+  background: var(--deep-navy);
+}
+.contact-wrapper {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 80px;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+.contact-info h3 {
+  font-family: 'Playfair Display', serif;
+  font-size: 1.6rem;
+  color: var(--white);
+  margin-bottom: 20px;
+}
+.contact-info p {
+  color: var(--cream-dim);
+  margin-bottom: 30px;
+  line-height: 1.8;
+}
+.contact-channels {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+.contact-channel {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  padding: 18px 20px;
+  background: rgba(20,20,40,0.5);
+  border: 1px solid rgba(201,169,110,0.08);
+  text-decoration: none;
+  color: var(--cream);
+  transition: all 0.3s;
+}
+.contact-channel:hover {
+  border-color: rgba(201,169,110,0.3);
+  transform: translateX(6px);
+}
+.contact-channel .ch-icon {
+  font-size: 1.4rem;
+  width: 40px;
+  text-align: center;
+}
+.contact-channel .ch-label {
+  font-family: 'Montserrat', sans-serif;
+  font-size: 0.68rem;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  color: var(--gold);
+  display: block;
+}
+.contact-channel .ch-value {
+  font-size: 0.92rem;
+  color: var(--cream);
+  margin-top: 2px;
+}
+
+/* Form */
+.contact-form {
+  background: rgba(20,20,40,0.4);
+  border: 1px solid rgba(201,169,110,0.1);
+  padding: 44px 40px;
+}
+.contact-form h3 {
+  font-family: 'Playfair Display', serif;
+  font-size: 1.4rem;
+  color: var(--white);
+  margin-bottom: 30px;
+}
+.form-group {
+  margin-bottom: 22px;
+}
+.form-group label {
+  display: block;
+  font-family: 'Montserrat', sans-serif;
+  font-size: 0.65rem;
+  font-weight: 600;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  color: var(--gold);
+  margin-bottom: 8px;
+}
+.form-group input,
+.form-group textarea,
+.form-group select {
+  width: 100%;
+  padding: 14px 18px;
+  background: rgba(6,6,15,0.6);
+  border: 1px solid rgba(201,169,110,0.15);
+  color: var(--cream);
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 1rem;
+  outline: none;
+  transition: border-color 0.3s;
+}
+.form-group input:focus,
+.form-group textarea:focus,
+.form-group select:focus {
+  border-color: var(--gold);
+}
+.form-group textarea { min-height: 100px; resize: vertical; }
+.form-group select option { background: var(--midnight); color: var(--cream); }
+.form-row {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 16px;
+}
+.form-submit {
+  width: 100%;
+  margin-top: 10px;
+}
+
+/* ---- FOOTER ---- */
+footer {
+  background: var(--midnight);
+  border-top: 1px solid rgba(201,169,110,0.08);
+  padding: 60px 50px 30px;
+}
+.footer-grid {
+  display: grid;
+  grid-template-columns: 2fr 1fr 1fr 1fr;
+  gap: 50px;
+  max-width: 1200px;
+  margin: 0 auto 50px;
+}
+.footer-brand .nav-logo { display: inline-block; margin-bottom: 16px; }
+.footer-brand p {
+  font-size: 0.92rem;
+  color: var(--cream-dim);
+  line-height: 1.8;
+  max-width: 320px;
+}
+.footer-col h4 {
+  font-family: 'Montserrat', sans-serif;
+  font-size: 0.65rem;
+  font-weight: 600;
+  letter-spacing: 3px;
+  text-transform: uppercase;
+  color: var(--gold);
+  margin-bottom: 20px;
+}
+.footer-col a {
+  display: block;
+  font-size: 0.92rem;
+  color: var(--cream-dim);
+  text-decoration: none;
+  margin-bottom: 10px;
+  transition: color 0.3s;
+}
+.footer-col a:hover { color: var(--gold); }
+.footer-bottom {
+  text-align: center;
+  padding-top: 30px;
+  border-top: 1px solid rgba(201,169,110,0.06);
+  max-width: 1200px;
+  margin: 0 auto;
+}
+.footer-bottom p {
+  font-family: 'Montserrat', sans-serif;
+  font-size: 0.65rem;
+  letter-spacing: 2px;
+  color: rgba(196,184,165,0.5);
+}
+.footer-bottom .issue-text {
+  margin-top: 10px;
+  font-size: 0.72rem;
+  color: var(--cream-dim);
+}
+.footer-bottom .issue-text a {
+  color: var(--gold);
+  text-decoration: none;
+}
+.footer-bottom .issue-text a:hover { text-decoration: underline; }
+
+/* ---- WHATSAPP FLOAT ---- */
+.whatsapp-float {
+  position: fixed;
+  bottom: 30px; right: 30px;
+  width: 60px; height: 60px;
+  background: #25D366;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 9998;
+  box-shadow: 0 6px 24px rgba(37,211,102,0.4);
+  transition: all 0.3s;
+  text-decoration: none;
+}
+.whatsapp-float:hover {
+  transform: scale(1.1);
+  box-shadow: 0 8px 32px rgba(37,211,102,0.6);
+}
+.whatsapp-float svg { width: 30px; height: 30px; fill: #fff; }
+
+/* ---- RESPONSIVE ---- */
+@media (max-width: 1024px) {
+  section { padding: 80px 30px; }
+  .about-grid { grid-template-columns: 1fr; gap: 50px; }
+  .contact-wrapper { grid-template-columns: 1fr; gap: 50px; }
+  .footer-grid { grid-template-columns: 1fr 1fr; gap: 30px; }
+  .trailers-grid { grid-template-columns: 1fr; }
+}
+@media (max-width: 768px) {
+  nav { padding: 14px 24px; }
+  .nav-links { display: none; }
+  .nav-cta { display: none; }
+  .hamburger { display: flex; }
+  section { padding: 60px 20px; }
+  .services-grid { grid-template-columns: 1fr; }
+  .packages-grid { grid-template-columns: 1fr; }
+  .footer-grid { grid-template-columns: 1fr; }
+  .form-row { grid-template-columns: 1fr; }
+  .stats-row { grid-template-columns: 1fr; }
+  .authors-row { grid-template-columns: repeat(auto-fill, minmax(140px, 1fr)); }
+}
+
+/* ---- MOBILE NAV OVERLAY ---- */
+.mobile-nav {
+  position: fixed;
+  inset: 0;
+  background: rgba(6,6,15,0.97);
+  z-index: 10000;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 28px;
+  opacity: 0;
+  visibility: hidden;
+  transition: all 0.4s;
+}
+.mobile-nav.open { opacity: 1; visibility: visible; }
+.mobile-nav a {
+  font-family: 'Playfair Display', serif;
+  font-size: 1.6rem;
+  color: var(--cream);
+  text-decoration: none;
+  transition: color 0.3s;
+}
+.mobile-nav a:hover { color: var(--gold); }
+.mobile-nav-close {
+  position: absolute;
+  top: 24px; right: 28px;
+  font-size: 2rem;
+  color: var(--gold);
+  cursor: pointer;
+  background: none;
+  border: none;
+}
+
+/* ---- CUSTOM SCROLLBAR ---- */
+::-webkit-scrollbar { width: 8px; }
+::-webkit-scrollbar-track { background: var(--midnight); }
+::-webkit-scrollbar-thumb {
+  background: linear-gradient(var(--gold), var(--rose));
+  border-radius: 4px;
+}
+
+/* ---- GOLDEN SHIMMER TEXT ---- */
+.shimmer {
+  background: linear-gradient(90deg, var(--gold), var(--gold-bright), var(--rose-soft), var(--gold));
+  background-size: 300% 100%;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  animation: shimmer-move 6s ease infinite;
+}
+@keyframes shimmer-move {
+  0% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
+}
+</style>
+</head>
+<body>
+
+<!-- PRELOADER -->
+<div id="preloader">
+  <h2>BUCHBOOST</h2>
+  <div class="loader-bar"><span></span></div>
+</div>
+
+<!-- BUTTERFLY CANVAS -->
+<canvas id="butterfly-canvas"></canvas>
+
+<!-- NAVIGATION -->
+<nav id="main-nav">
+  <a href="#hero" class="nav-logo">BUCH<span>BOOST</span></a>
+  <ul class="nav-links">
+    <li><a href="#about">About</a></li>
+    <li><a href="#services">Services</a></li>
+    <li><a href="#gallery">Portfolio</a></li>
+    <li><a href="#authors">Authors</a></li>
+    <li><a href="#team">Team</a></li>
+    <li><a href="#packages">Packages</a></li>
+    <li><a href="#contact">Contact</a></li>
+  </ul>
+  <a href="#contact" class="nav-cta">Get Started</a>
+  <div class="hamburger" onclick="toggleMobile()">
+    <span></span><span></span><span></span>
+  </div>
+</nav>
+
+<!-- MOBILE NAV -->
+<div class="mobile-nav" id="mobile-nav">
+  <button class="mobile-nav-close" onclick="toggleMobile()">&times;</button>
+  <a href="#about" onclick="toggleMobile()">About</a>
+  <a href="#services" onclick="toggleMobile()">Services</a>
+  <a href="#gallery" onclick="toggleMobile()">Portfolio</a>
+  <a href="#authors" onclick="toggleMobile()">Authors</a>
+  <a href="#team" onclick="toggleMobile()">Team</a>
+  <a href="#packages" onclick="toggleMobile()">Packages</a>
+  <a href="#contact" onclick="toggleMobile()">Contact</a>
+</div>
+
+<!-- ==================== HERO ==================== -->
+<section id="hero">
+  <div class="hero-particles" id="hero-particles"></div>
+  <div class="hero-content">
+    <p class="hero-eyebrow">Premium Literary Promotion</p>
+    <h1 class="hero-title">
+      Your Book Deserves<br>
+      <span class="accent">a Standing</span> <span class="accent-rose">Ovation</span>
+    </h1>
+    <p class="hero-subtitle">
+      We don't just market books — we architect cinematic campaigns across
+      French, German, English &amp; Spanish literary markets that turn authors into legends.
+    </p>
+    <div class="hero-buttons">
+      <a href="#packages" class="btn-primary">Explore Packages</a>
+      <a href="#gallery" class="btn-secondary">View Our Work</a>
+    </div>
+  </div>
+  <div class="hero-scroll-indicator">
+    <span>Scroll</span>
+    <div class="scroll-line"></div>
+  </div>
+</section>
+
+<!-- ==================== ABOUT ==================== -->
+<section id="about">
+  <div class="about-grid reveal">
+    <div class="about-text">
+      <p class="section-eyebrow">Who We Are</p>
+      <h2 class="section-title">The Agency That <span class="shimmer">Elevates Authors</span></h2>
+      <div class="section-divider"></div>
+      <p>
+        BuchBoost is a multilingual book marketing powerhouse operating across
+        four language markets — French, German, English, and Spanish.
+        We combine cinematic visual production, precision metadata strategy,
+        social proof engineering, and emotionally intelligent author management
+        to give your book the launch it was written for.
+      </p>
+      <p style="margin-top:16px">
+        From Amazon dominance to Goodreads virality, from cinematic book trailers
+        scored with symphonic music to handcrafted mockups that stop thumbs mid-scroll —
+        we don't do templates. Every campaign is an original composition,
+        built around the soul of your story.
+      </p>
+    </div>
+    <div class="about-stats">
+      <div class="stats-row">
+        <div class="stat-card">
+          <span class="stat-number">4</span>
+          <span class="stat-label">Language Markets</span>
+        </div>
+        <div class="stat-card">
+          <span class="stat-number">50+</span>
+          <span class="stat-label">Authors Served</span>
+        </div>
+        <div class="stat-card">
+          <span class="stat-number">35K+</span>
+          <span class="stat-label">Goodreads Impressions</span>
+        </div>
+        <div class="stat-card">
+          <span class="stat-number">12+</span>
+          <span class="stat-label">Services Offered</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ==================== SERVICES ==================== -->
+<section id="services">
+  <div class="services-header reveal">
+    <p class="section-eyebrow">What We Do</p>
+    <h2 class="section-title">Full-Spectrum Author <span class="shimmer">Promotion</span></h2>
+    <div class="section-divider"></div>
+    <p class="section-subtitle" style="margin:0 auto">
+      Every service is designed to build visibility, credibility, and commercial momentum for your book — across every platform that matters.
+    </p>
+  </div>
+
+  <div class="services-grid">
+    <div class="service-card reveal">
+      <span class="service-icon">📖</span>
+      <h3>Book Marketing Strategy</h3>
+      <p>End-to-end campaign architecture tailored to your genre, audience, and market. We design the full promotional arc — from pre-launch buzz to long-tail discoverability — ensuring your book reaches the readers who will love it most.</p>
+    </div>
+    <div class="service-card reveal">
+      <span class="service-icon">🔍</span>
+      <h3>Amazon Metadata Optimization</h3>
+      <p>Surgical keyword research, category selection, and backend metadata tuning that positions your book exactly where Amazon's algorithm rewards visibility. We reverse-engineer bestseller rankings so your book competes intelligently.</p>
+    </div>
+    <div class="service-card reveal">
+      <span class="service-icon">🎬</span>
+      <h3>Cinematic Book Trailers</h3>
+      <p>Hollywood-grade book trailers scored with symphonic orchestral music, composed with narrative pacing and emotional architecture. These aren't slideshows — they're 90-second cinematic experiences that make readers feel your story before they turn a single page.</p>
+    </div>
+    <div class="service-card reveal">
+      <span class="service-icon">🎨</span>
+      <h3>Kindle Thumbnail Design</h3>
+      <p>Scroll-stopping thumbnail designs optimized for the 120×187 pixel battlefield of Amazon search. We design for the algorithm and the human eye simultaneously, maximizing click-through rate at every impression.</p>
+    </div>
+    <div class="service-card reveal">
+      <span class="service-icon">📊</span>
+      <h3>Amazon A+ Content & Optimization</h3>
+      <p>Enhanced brand content, optimized product descriptions, and strategic pricing architecture that transforms your Amazon listing from a page into a sales conversion machine. We handle A+ modules, editorial reviews, and listing psychology.</p>
+    </div>
+    <div class="service-card reveal">
+      <span class="service-icon">✍️</span>
+      <h3>Synopsis Revamping</h3>
+      <p>Your synopsis is the single most important piece of sales copy your book will ever have. We rewrite it with emotional hooks, genre-appropriate pacing, and psychological triggers that convert browsers into buyers.</p>
+    </div>
+    <div class="service-card reveal">
+      <span class="service-icon">📱</span>
+      <h3>TikTok BookTok Promotion</h3>
+      <p>Strategic placement within the BookTok ecosystem — the single most powerful organic discovery engine for books today. We create viral-ready content, partner with micro-influencers, and engineer the aesthetic moments that BookTok amplifies.</p>
+    </div>
+    <div class="service-card reveal">
+      <span class="service-icon">🏆</span>
+      <h3>Bestseller Strategies</h3>
+      <p>Category-specific launch coordination designed to hit Amazon bestseller tags within your first critical window. We orchestrate review velocity, promotional stacking, price pulsing, and cross-platform traffic funneling to engineer chart placement.</p>
+    </div>
+    <div class="service-card reveal">
+      <span class="service-icon">⚙️</span>
+      <h3>Metadata & SEO Optimization</h3>
+      <p>Beyond Amazon — we optimize your book's discoverability across Google, Goodreads, library catalogues, and international retailer platforms. BISAC codes, thema subjects, ISBN metadata, and long-tail keyword architecture across all retail surfaces.</p>
+    </div>
+    <div class="service-card reveal">
+      <span class="service-icon">⭐</span>
+      <h3>Review & Social Proof Service</h3>
+      <p>Strategic reader community placement that generates authentic reviews, Goodreads ratings, and editorial endorsements. We build the social proof ecosystem that makes new readers trust your book before they even read the first page.</p>
+    </div>
+    <div class="service-card reveal">
+      <span class="service-icon">📣</span>
+      <h3>Social Media & Influencer Marketing</h3>
+      <p>Cross-platform campaigns spanning Instagram, Facebook, TikTok, YouTube, and literary blogs. We match your book to the right influencers, design visual content calendars, and create campaigns that generate genuine reader engagement.</p>
+    </div>
+    <div class="service-card reveal">
+      <span class="service-icon">✉️</span>
+      <h3>Email Marketing & Newsletters</h3>
+      <p>Automated email sequences, newsletter features, and reader list development that create a direct, owned channel between you and your readers — independent of any algorithm's whims. Drip campaigns, launch blasts, and ARC distribution.</p>
+    </div>
+    <div class="service-card reveal">
+      <span class="service-icon">🌐</span>
+      <h3>Author Website & Branding</h3>
+      <p>Complete author brand identity — from website design to visual language, press kits, and media-ready assets. We create the professional ecosystem that makes publishers, media, and readers take you seriously at first glance.</p>
+    </div>
+    <div class="service-card reveal">
+      <span class="service-icon">📚</span>
+      <h3>Goodreads Campaign Management</h3>
+      <p>Full-service Goodreads strategy including profile optimization, librarian-verified listings, targeted giveaway campaigns, reading list placements, and community engagement that drives organic ratings and genre visibility.</p>
+    </div>
+    <div class="service-card reveal">
+      <span class="service-icon">🖼️</span>
+      <h3>Cinematic Book Mockups & Posters</h3>
+      <p>Breathtaking, movie-poster-quality visual mockups that position your book as a cinematic event. AI-enhanced environments, thematic staging, and premium compositing that transforms your cover into a work of art worth sharing.</p>
+    </div>
+    <div class="service-card reveal">
+      <span class="service-icon">🎞️</span>
+      <h3>Author Legacy Reel</h3>
+      <p>A cinematic mini-documentary capturing your story as an author — your journey, your motivations, your artistic vision. Designed for press kits, festival submissions, radio interviews, and the permanent archive of your creative legacy.</p>
+    </div>
+    <div class="service-card reveal">
+      <span class="service-icon">🌍</span>
+      <h3>International Market Expansion</h3>
+      <p>Multilingual campaign deployment across French, German, English, and Spanish-speaking markets. We localize your messaging, optimize for regional Amazon stores, and connect your book to readers who will never find you through English-only channels.</p>
+    </div>
+    <div class="service-card reveal">
+      <span class="service-icon">📰</span>
+      <h3>Press Kit Development</h3>
+      <p>Media-ready professional press kits containing your biography, high-resolution author photos, book synopses, review excerpts, cinematic assets, and interview talking points — everything a journalist, podcaster, or festival coordinator needs to feature you.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ==================== GALLERY ==================== -->
+<section id="gallery">
+  <div class="gallery-header reveal">
+    <p class="section-eyebrow">Our Portfolio</p>
+    <h2 class="section-title">Cinematic <span class="shimmer">Masterpieces</span></h2>
+    <div class="section-divider"></div>
+    <p class="section-subtitle" style="margin:0 auto">
+      Every mockup, poster, and visual we create is a handcrafted cinematic event — designed to stop scrolling and start reading.
+    </p>
+  </div>
+
+  <div class="gallery-slider reveal">
+    <div class="gallery-track" id="gallery-track">
+      <div class="gallery-slide"><img src="images/nicolas_kamas.png" alt="The Island of Kamas — Nicolas Antoniucci"></div>
+      <div class="gallery-slide"><img src="images/rudolf_bulant_poster.png" alt="Die Macht der Kristalle — Rudolf Bulant"></div>
+      <div class="gallery-slide"><img src="images/bernhard_fink.png" alt="Bewusst Denken — Bernhard Fink"></div>
+      <div class="gallery-slide"><img src="images/michel_quint.png" alt="In Our Strange Gardens — Michel Quint"></div>
+      <div class="gallery-slide"><img src="images/rudolf_bulant_mockup.jpeg" alt="Die Macht der Kristalle — Mockup"></div>
+      <div class="gallery-slide"><img src="images/lucile_gauchers.png" alt="Déviances — Lucile Gauchers"></div>
+      <div class="gallery-slide"><img src="images/alcor_adam.jpeg" alt="Alcor Adam — Nicolas Antoniucci"></div>
+      <div class="gallery-slide"><img src="images/ferenc_barnas.png" alt="Bis ans Ende unserer Leben — Ferenc Barnás"></div>
+    </div>
+    <div class="gallery-controls">
+      <button class="gallery-btn" onclick="slideGallery(-1)">&#8592;</button>
+      <div class="gallery-dots" id="gallery-dots"></div>
+      <button class="gallery-btn" onclick="slideGallery(1)">&#8594;</button>
+    </div>
+  </div>
+</section>
+
+<!-- ==================== TRAILERS ==================== -->
+<section id="trailers">
+  <div class="trailers-header reveal">
+    <p class="section-eyebrow">Watch</p>
+    <h2 class="section-title">Cinematic <span class="shimmer">Book Trailers</span></h2>
+    <div class="section-divider"></div>
+    <p class="section-subtitle" style="margin:0 auto">
+      Symphonic scores. Cinematic pacing. Your story, brought to life in motion.
+    </p>
+  </div>
+
+  <div class="trailers-grid reveal">
+    <div class="trailer-card">
+      <h3>Author Legacy Reel</h3>
+      <p>Nicolas Antoniucci — A cinematic mini-documentary capturing the journey, vision, and literary universe of one of France's most inventive science-fiction authors.</p>
+      <a href="https://drive.google.com/file/d/1sf-Y-eFc1x1LB3etU2-w6iDTgazXEFyg/view?usp=drivesdk" target="_blank" class="trailer-link">▶ Watch Legacy Reel</a>
+    </div>
+    <div class="trailer-card">
+      <h3>Cinematic Book Trailer</h3>
+      <p>Nicolas Antoniucci — A symphonic, visually stunning trailer for his literary universe, designed for social media virality, press kits, and radio broadcast support.</p>
+      <a href="https://drive.google.com/file/d/1dxdDYnFQ0aC0XOnfVmfwbnIgc_Go7xYJ/view?usp=drivesdk" target="_blank" class="trailer-link">▶ Watch Trailer</a>
+    </div>
+  </div>
+</section>
+
+<!-- ==================== AUTHORS ==================== -->
+<section id="authors">
+  <div class="authors-header reveal">
+    <p class="section-eyebrow">Authors We Champion</p>
+    <h2 class="section-title">Voices Across <span class="shimmer">Three Continents</span></h2>
+    <div class="section-divider"></div>
+    <p class="section-subtitle" style="margin:0 auto">
+      From Parisian science-fiction to Viennese literary fiction to British thrillers — these are the authors who trust BuchBoost with their legacy.
+    </p>
+  </div>
+
+  <!-- FRENCH -->
+  <div class="authors-lang-group reveal">
+    <h3 class="lang-label">🇫🇷 Francophone Authors</h3>
+    <div class="authors-row">
+      <div class="author-card">
+        <div class="author-avatar avatar-fr">NA</div>
+        <h4>Nicolas Antoniucci</h4>
+        <span>Science-Fiction &amp; Suspense</span>
+      </div>
+      <div class="author-card">
+        <div class="author-avatar avatar-fr">MT</div>
+        <h4>Marina Tirion</h4>
+        <span>Fantasy &amp; Dragons</span>
+      </div>
+      <div class="author-card">
+        <div class="author-avatar avatar-fr">LG</div>
+        <h4>Lucile Gauchers</h4>
+        <span>Dark Fiction &amp; Nouvelles</span>
+      </div>
+      <div class="author-card">
+        <div class="author-avatar avatar-fr">SJ</div>
+        <h4>Stéphane Jourdain</h4>
+        <span>Contemporary Literature</span>
+      </div>
+      <div class="author-card">
+        <div class="author-avatar avatar-fr">ON</div>
+        <h4>Olivier Norek</h4>
+        <span>Crime &amp; Thriller</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- GERMAN -->
+  <div class="authors-lang-group reveal">
+    <h3 class="lang-label">🇩🇪 German-Language Authors</h3>
+    <div class="authors-row">
+      <div class="author-card">
+        <div class="author-avatar avatar-de">DT</div>
+        <h4>Dirk Trost</h4>
+        <span>Crime &amp; Regional Fiction</span>
+      </div>
+      <div class="author-card">
+        <div class="author-avatar avatar-de">CB</div>
+        <h4>Christoph Braendle</h4>
+        <span>Literary Fiction</span>
+      </div>
+      <div class="author-card">
+        <div class="author-avatar avatar-de">BF</div>
+        <h4>Bernhard Fink</h4>
+        <span>Non-Fiction &amp; Mindset</span>
+      </div>
+      <div class="author-card">
+        <div class="author-avatar avatar-de">RB</div>
+        <h4>Rudolf Bulant</h4>
+        <span>Sci-Fi &amp; Metaphysical</span>
+      </div>
+      <div class="author-card">
+        <div class="author-avatar avatar-de">LK</div>
+        <h4>Lily Konrad</h4>
+        <span>Romance &amp; Drama</span>
+      </div>
+      <div class="author-card">
+        <div class="author-avatar avatar-de">RS</div>
+        <h4>Robert Streibel</h4>
+        <span>History &amp; Documentary</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- ENGLISH -->
+  <div class="authors-lang-group reveal">
+    <h3 class="lang-label">🇬🇧 English-Language Authors</h3>
+    <div class="authors-row">
+      <div class="author-card">
+        <div class="author-avatar avatar-en">CH</div>
+        <h4>Christopher Harris</h4>
+        <span>Literary Fiction</span>
+      </div>
+      <div class="author-card">
+        <div class="author-avatar avatar-en">ME</div>
+        <h4>Mark Edwards</h4>
+        <span>Psychological Thriller</span>
+      </div>
+      <div class="author-card">
+        <div class="author-avatar avatar-en">JM</div>
+        <h4>John Marr</h4>
+        <span>Contemporary Fiction</span>
+      </div>
+      <div class="author-card">
+        <div class="author-avatar avatar-en">JB</div>
+        <h4>Josiah Bancroft</h4>
+        <span>Epic Fantasy</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ==================== TEAM ==================== -->
+<section id="team">
+  <div class="team-header reveal">
+    <p class="section-eyebrow">The People Behind the Pages</p>
+    <h2 class="section-title">Meet the <span class="shimmer">BuchBoost Team</span></h2>
+    <div class="section-divider"></div>
+    <p class="section-subtitle" style="margin:0 auto">
+      A multilingual, cross-cultural team of literary strategists, creative directors, and market specialists — united by one mission: making authors unforgettable.
+    </p>
+  </div>
+
+  <div class="team-grid">
+    <div class="team-card lead reveal">
+      <div class="team-avatar">FB</div>
+      <h4>Felicia Bele</h4>
+      <span class="role">Campaign Director & Team Lead</span>
+      <p>The heart and architect of every BuchBoost campaign. Felicia leads with warmth, strategic vision, and an unwavering belief in every author's story. Fluent in French and English.</p>
+    </div>
+    <div class="team-card reveal">
+      <div class="team-avatar">SM</div>
+      <h4>Sophie Müller</h4>
+      <span class="role">German Market Lead</span>
+      <p>Specialist in DACH literary markets — Austria, Germany, and Switzerland. Sophie brings precision, cultural fluency, and deep publishing knowledge to every German-language campaign.</p>
+    </div>
+    <div class="team-card reveal">
+      <div class="team-avatar">MA</div>
+      <h4>Mary Ashford</h4>
+      <span class="role">Client Relations Manager</span>
+      <p>The first voice many authors hear. Mary manages onboarding, relationship continuity, and ensures every client feels valued from the first conversation to the final deliverable.</p>
+    </div>
+    <div class="team-card reveal">
+      <div class="team-avatar">RJ</div>
+      <h4>Ruth Johnson</h4>
+      <span class="role">English Market Specialist</span>
+      <p>With deep roots in the UK and US publishing ecosystems, Ruth architects campaigns for English-language authors navigating Amazon US, UK, and global English-speaking audiences.</p>
+    </div>
+    <div class="team-card reveal">
+      <div class="team-avatar">JC</div>
+      <h4>Jessica Corry</h4>
+      <span class="role">Social Media Director</span>
+      <p>TikTok, Instagram, BookTok — Jessica engineers the viral moments that turn unknown titles into trending sensations. She understands what makes readers share, save, and buy.</p>
+    </div>
+    <div class="team-card reveal">
+      <div class="team-avatar">AB</div>
+      <h4>Allyson Brooks</h4>
+      <span class="role">Creative Director</span>
+      <p>Every mockup, poster, and visual asset passes through Allyson's eye. She oversees the cinematic quality of all BuchBoost creative work, from concept to final render.</p>
+    </div>
+    <div class="team-card reveal">
+      <div class="team-avatar">CL</div>
+      <h4>Camille Laurent</h4>
+      <span class="role">French Market Coordinator</span>
+      <p>Camille supports Felicia across all Francophone author campaigns — managing timelines, coordinating deliverables, and maintaining the warm communication BuchBoost is known for.</p>
+    </div>
+    <div class="team-card reveal">
+      <div class="team-avatar">ET</div>
+      <h4>Elena Torres</h4>
+      <span class="role">Spanish Market Lead</span>
+      <p>Leading BuchBoost's expansion into Spanish-language literary markets across Spain and Latin America, Elena brings cultural intelligence and publishing expertise to a rapidly growing frontier.</p>
+    </div>
+    <div class="team-card reveal">
+      <div class="team-avatar">NW</div>
+      <h4>Naomi Wright</h4>
+      <span class="role">Metadata & SEO Strategist</span>
+      <p>The invisible architect behind every bestseller ranking. Naomi reverse-engineers Amazon, Google, and Goodreads algorithms so your book is always where the readers are.</p>
+    </div>
+    <div class="team-card reveal">
+      <div class="team-avatar">DP</div>
+      <h4>Daniel Petrov</h4>
+      <span class="role">Video Production Lead</span>
+      <p>Daniel crafts every cinematic book trailer and legacy reel — selecting symphonic scores, orchestrating visual pacing, and delivering Hollywood-quality motion content for authors.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ==================== PACKAGES ==================== -->
+<section id="packages">
+  <div class="packages-header reveal">
+    <p class="section-eyebrow">Investment Tiers</p>
+    <h2 class="section-title">Choose Your <span class="shimmer">Launch Tier</span></h2>
+    <div class="section-divider"></div>
+    <p class="section-subtitle" style="margin:0 auto">
+      Every tier is a complete campaign architecture — not a list of features. Choose based on the scale of visibility your book deserves.
+    </p>
+  </div>
+
+  <div class="packages-grid">
+    <div class="package-card reveal">
+      <h3>Seed</h3>
+      <div class="package-price">€320 <small>/ campaign</small></div>
+      <p class="package-desc">For authors beginning their visibility journey</p>
+      <ul class="package-features">
+        <li>Amazon Metadata Optimization</li>
+        <li>Synopsis Revamping</li>
+        <li>Goodreads Profile Setup</li>
+        <li>1 Cinematic Book Mockup</li>
+        <li>Kindle Thumbnail Design</li>
+        <li>Basic SEO Optimization</li>
+      </ul>
+      <a href="#contact" class="btn-primary">Select Seed</a>
+    </div>
+
+    <div class="package-card reveal">
+      <h3>Growth</h3>
+      <div class="package-price">€585 <small>/ campaign</small></div>
+      <p class="package-desc">Strategic visibility across multiple platforms</p>
+      <ul class="package-features">
+        <li>Everything in Seed</li>
+        <li>Cinematic Book Trailer</li>
+        <li>3 Premium Book Mockups</li>
+        <li>Social Media Content Pack</li>
+        <li>Goodreads Campaign (30-day)</li>
+        <li>Review Strategy Blueprint</li>
+        <li>Email Marketing Setup</li>
+      </ul>
+      <a href="#contact" class="btn-primary">Select Growth</a>
+    </div>
+
+    <div class="package-card featured reveal">
+      <h3>Momentum</h3>
+      <div class="package-price">€885 <small>/ campaign</small></div>
+      <p class="package-desc">Full-scale multi-platform domination</p>
+      <ul class="package-features">
+        <li>Everything in Growth</li>
+        <li>BookTok / TikTok Campaign</li>
+        <li>Influencer Partnership (3+)</li>
+        <li>Amazon A+ Content Design</li>
+        <li>Bestseller Launch Strategy</li>
+        <li>Cinematic Poster Design</li>
+        <li>Press Kit Development</li>
+        <li>60-day Goodreads Campaign</li>
+      </ul>
+      <a href="#contact" class="btn-primary">Select Momentum</a>
+    </div>
+
+    <div class="package-card reveal">
+      <h3>Impact</h3>
+      <div class="package-price">€1,185 <small>/ campaign</small></div>
+      <p class="package-desc">The complete author transformation</p>
+      <ul class="package-features">
+        <li>Everything in Momentum</li>
+        <li>Author Legacy Reel (Documentary)</li>
+        <li>Author Website Design</li>
+        <li>International Market Expansion</li>
+        <li>Full Email Funnel Architecture</li>
+        <li>90-day Goodreads Campaign</li>
+        <li>Dedicated Campaign Manager</li>
+        <li>Priority Support Channel</li>
+      </ul>
+      <a href="#contact" class="btn-primary">Select Impact</a>
+    </div>
+  </div>
+</section>
+
+<!-- ==================== CONTACT ==================== -->
+<section id="contact">
+  <div class="contact-wrapper">
+    <div class="contact-info reveal">
+      <p class="section-eyebrow">Get In Touch</p>
+      <h2 class="section-title">Let's Build Your <span class="shimmer">Campaign</span></h2>
+      <div class="section-divider"></div>
+      <p>
+        Whether you have a single question or are ready to launch a full campaign,
+        we're here. Reach out through any channel — our team responds within 24 hours.
+      </p>
+
+      <div class="contact-channels">
+        <a href="https://wa.me/447407645787" target="_blank" class="contact-channel">
+          <div class="ch-icon">💬</div>
+          <div>
+            <span class="ch-label">WhatsApp (UK)</span>
+            <span class="ch-value">+44 7407 645787</span>
+          </div>
+        </a>
+        <a href="https://www.tiktok.com/@buchboost5" target="_blank" class="contact-channel">
+          <div class="ch-icon">🎵</div>
+          <div>
+            <span class="ch-label">TikTok</span>
+            <span class="ch-value">@buchboost5</span>
+          </div>
+        </a>
+        <a href="mailto:feliciaxbele@gmail.com" class="contact-channel">
+          <div class="ch-icon">✉️</div>
+          <div>
+            <span class="ch-label">Email — Campaign Director</span>
+            <span class="ch-value">feliciaxbele@gmail.com</span>
+          </div>
+        </a>
+      </div>
+    </div>
+
+    <div class="contact-form reveal">
+      <h3>Start Your Journey</h3>
+      <form action="https://formspree.io/f/xpqnyvkk" method="POST">
+        <div class="form-row">
+          <div class="form-group">
+            <label>Your Name</label>
+            <input type="text" name="name" placeholder="Full name" required>
+          </div>
+          <div class="form-group">
+            <label>Email</label>
+            <input type="email" name="email" placeholder="author@email.com" required>
+          </div>
+        </div>
+        <div class="form-group">
+          <label>Book Title</label>
+          <input type="text" name="book_title" placeholder="Your book's title">
+        </div>
+        <div class="form-row">
+          <div class="form-group">
+            <label>Preferred Package</label>
+            <select name="package">
+              <option value="">Select a tier...</option>
+              <option value="seed">Seed — €320</option>
+              <option value="growth">Growth — €585</option>
+              <option value="momentum">Momentum — €885</option>
+              <option value="impact">Impact — €1,185</option>
+              <option value="custom">Custom / Not Sure</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label>Currency</label>
+            <select name="currency">
+              <option value="EUR">€ Euro (EUR)</option>
+              <option value="USD">$ US Dollar (USD)</option>
+              <option value="GBP">£ British Pound (GBP)</option>
+              <option value="CHF">CHF Swiss Franc (CHF)</option>
+              <option value="KWD">KWD Kuwaiti Dinar (KWD)</option>
+            </select>
+          </div>
+        </div>
+        <div class="form-group">
+          <label>Your Budget Range</label>
+          <select name="budget">
+            <option value="">Select budget range...</option>
+            <option value="under-300">Under €300</option>
+            <option value="300-600">€300 – €600</option>
+            <option value="600-900">€600 – €900</option>
+            <option value="900-1200">€900 – €1,200</option>
+            <option value="1200-plus">€1,200+</option>
+            <option value="flexible">Flexible / To Be Discussed</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label>What Do You Need Help With?</label>
+          <textarea name="needs" placeholder="Tell us about your book, your goals, and what kind of support you're looking for..." rows="4"></textarea>
+        </div>
+        <div class="form-group">
+          <label>Specific Challenges or Problems</label>
+          <textarea name="problems" placeholder="Are there specific issues you're facing? Low visibility, poor reviews, no marketing plan..." rows="3"></textarea>
+        </div>
+        <input type="hidden" name="_subject" value="New BuchBoost Inquiry">
+        <button type="submit" class="btn-primary form-submit">Send Your Inquiry</button>
+      </form>
+    </div>
+  </div>
+</section>
+
+<!-- ==================== FOOTER ==================== -->
+<footer>
+  <div class="footer-grid">
+    <div class="footer-brand">
+      <a href="#hero" class="nav-logo">BUCH<span>BOOST</span></a>
+      <p>Premium multilingual book marketing and author promotion across French, German, English, and Spanish literary markets. Your story deserves to be seen.</p>
+    </div>
+    <div class="footer-col">
+      <h4>Services</h4>
+      <a href="#services">Book Marketing</a>
+      <a href="#services">Amazon Optimization</a>
+      <a href="#services">Cinematic Trailers</a>
+      <a href="#services">BookTok Promotion</a>
+      <a href="#services">Author Branding</a>
+    </div>
+    <div class="footer-col">
+      <h4>Company</h4>
+      <a href="#about">About Us</a>
+      <a href="#team">Our Team</a>
+      <a href="#gallery">Portfolio</a>
+      <a href="#authors">Our Authors</a>
+    </div>
+    <div class="footer-col">
+      <h4>Connect</h4>
+      <a href="https://wa.me/447407645787" target="_blank">WhatsApp</a>
+      <a href="https://www.tiktok.com/@buchboost5" target="_blank">TikTok</a>
+      <a href="mailto:feliciaxbele@gmail.com">Email Felicia</a>
+      <a href="#contact">Contact Form</a>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <p>&copy; 2026 BUCHBOOST — PREMIUM BOOK MARKETING. ALL RIGHTS RESERVED.</p>
+    <p class="issue-text">
+      Experiencing an issue? Contact <a href="mailto:jakestone@gmail.com">jakestone@gmail.com</a>
+      or <a href="mailto:feliciaxbele@gmail.com">feliciaxbele@gmail.com</a>
+    </p>
+  </div>
+</footer>
+
+<!-- WHATSAPP FLOAT -->
+<a href="https://wa.me/447407645787" target="_blank" class="whatsapp-float" title="Chat with us on WhatsApp">
+  <svg viewBox="0 0 24 24"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+</a>
+
+<!-- ==================== SCRIPTS ==================== -->
+<script>
+// ---- PRELOADER ----
+window.addEventListener('load', () => {
+  setTimeout(() => {
+    document.getElementById('preloader').classList.add('hidden');
+  }, 2200);
+});
+
+// ---- NAV SCROLL ----
+window.addEventListener('scroll', () => {
+  const nav = document.getElementById('main-nav');
+  nav.classList.toggle('scrolled', window.scrollY > 80);
+});
+
+// ---- MOBILE NAV ----
+function toggleMobile() {
+  document.getElementById('mobile-nav').classList.toggle('open');
+}
+
+// ---- SCROLL REVEAL ----
+const revealObserver = new IntersectionObserver((entries) => {
+  entries.forEach(entry => {
+    if (entry.isIntersecting) {
+      entry.target.classList.add('visible');
+    }
+  });
+}, { threshold: 0.1, rootMargin: '0px 0px -40px 0px' });
+
+document.querySelectorAll('.reveal').forEach(el => revealObserver.observe(el));
+
+// ---- HERO PARTICLES ----
+(function() {
+  const container = document.getElementById('hero-particles');
+  for (let i = 0; i < 40; i++) {
+    const p = document.createElement('div');
+    p.className = 'hero-particle';
+    p.style.left = Math.random() * 100 + '%';
+    p.style.animationDelay = Math.random() * 8 + 's';
+    p.style.animationDuration = (6 + Math.random() * 6) + 's';
+    if (Math.random() > 0.6) p.style.background = '#d4798a';
+    if (Math.random() > 0.8) {
+      p.style.width = '5px';
+      p.style.height = '5px';
+    }
+    container.appendChild(p);
+  }
+})();
+
+// ---- GALLERY SLIDER ----
+let currentSlide = 0;
+const track = document.getElementById('gallery-track');
+const totalSlides = track.children.length;
+const dotsContainer = document.getElementById('gallery-dots');
+
+// Create dots
+for (let i = 0; i < totalSlides; i++) {
+  const dot = document.createElement('button');
+  dot.className = 'gallery-dot' + (i === 0 ? ' active' : '');
+  dot.onclick = () => goToSlide(i);
+  dotsContainer.appendChild(dot);
+}
+
+function goToSlide(n) {
+  currentSlide = n;
+  track.style.transform = `translateX(-${n * 100}%)`;
+  document.querySelectorAll('.gallery-dot').forEach((d, i) => {
+    d.classList.toggle('active', i === n);
+  });
+}
+
+function slideGallery(dir) {
+  let next = currentSlide + dir;
+  if (next < 0) next = totalSlides - 1;
+  if (next >= totalSlides) next = 0;
+  goToSlide(next);
+}
+
+// Auto-advance
+setInterval(() => slideGallery(1), 5000);
+
+// ---- BUTTERFLY CANVAS ----
+(function() {
+  const canvas = document.getElementById('butterfly-canvas');
+  const ctx = canvas.getContext('2d');
+
+  function resize() {
+    canvas.width = window.innerWidth;
+    canvas.height = window.innerHeight;
+  }
+  resize();
+  window.addEventListener('resize', resize);
+
+  class Butterfly {
+    constructor() {
+      this.reset();
+    }
+    reset() {
+      this.x = Math.random() * canvas.width;
+      this.y = canvas.height + 20;
+      this.size = 6 + Math.random() * 10;
+      this.speedX = (Math.random() - 0.5) * 1.5;
+      this.speedY = -(0.3 + Math.random() * 0.8);
+      this.wingPhase = Math.random() * Math.PI * 2;
+      this.wingSpeed = 0.08 + Math.random() * 0.06;
+      this.opacity = 0.15 + Math.random() * 0.35;
+      this.hue = Math.random() > 0.5 ? '201,169,110' : '212,121,138';
+      this.wobble = Math.random() * 0.02;
+    }
+    update() {
+      this.wingPhase += this.wingSpeed;
+      this.x += this.speedX + Math.sin(this.wingPhase * 0.3) * 0.8;
+      this.y += this.speedY;
+      if (this.y < -30 || this.x < -30 || this.x > canvas.width + 30) {
+        this.reset();
+      }
+    }
+    draw() {
+      const wingSpan = Math.abs(Math.sin(this.wingPhase)) * this.size;
+      ctx.save();
+      ctx.translate(this.x, this.y);
+      ctx.globalAlpha = this.opacity;
+      // Left wing
+      ctx.beginPath();
+      ctx.ellipse(-wingSpan * 0.5, 0, wingSpan, this.size * 0.6, -0.3, 0, Math.PI * 2);
+      ctx.fillStyle = `rgba(${this.hue}, 0.6)`;
+      ctx.fill();
+      // Right wing
+      ctx.beginPath();
+      ctx.ellipse(wingSpan * 0.5, 0, wingSpan, this.size * 0.6, 0.3, 0, Math.PI * 2);
+      ctx.fill();
+      // Body
+      ctx.beginPath();
+      ctx.ellipse(0, 0, 1.5, this.size * 0.4, 0, 0, Math.PI * 2);
+      ctx.fillStyle = `rgba(${this.hue}, 0.9)`;
+      ctx.fill();
+      ctx.restore();
+    }
+  }
+
+  const butterflies = [];
+  for (let i = 0; i < 12; i++) {
+    const b = new Butterfly();
+    b.y = Math.random() * canvas.height;
+    butterflies.push(b);
+  }
+
+  function animate() {
+    ctx.clearRect(0, 0, canvas.width, canvas.height);
+    butterflies.forEach(b => {
+      b.update();
+      b.draw();
+    });
+    requestAnimationFrame(animate);
+  }
+  animate();
+})();
+
+// ---- SERVICE CARD STAGGER ----
+document.querySelectorAll('.service-card.reveal').forEach((card, i) => {
+  card.style.transitionDelay = (i * 0.05) + 's';
+});
+document.querySelectorAll('.team-card.reveal').forEach((card, i) => {
+  card.style.transitionDelay = (i * 0.06) + 's';
+});
+document.querySelectorAll('.package-card.reveal').forEach((card, i) => {
+  card.style.transitionDelay = (i * 0.08) + 's';
+});
+
+// ---- SMOOTH ANCHOR SCROLL ----
+document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+  anchor.addEventListener('click', function(e) {
+    e.preventDefault();
+    const target = document.querySelector(this.getAttribute('href'));
+    if (target) {
+      target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    }
+  });
+});
+</script>
+</body>
+</html>
